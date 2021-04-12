@@ -1,14 +1,14 @@
-### NodeJS
-* v14.15.4
+### Springboot
+> 
 
-### NPM
-* v6.14.10
+### JPA
+>
 
-### Vue.js
-* Vue CLI v4.5.11
+### Thymeleaf
+>
 
 ### Eclipse
-* 2020-12
+> 2020-12
 
 ### Server
-* Naver Micro Server(Linux)
+> AWS 예정

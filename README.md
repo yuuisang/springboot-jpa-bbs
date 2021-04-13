@@ -1,5 +1,5 @@
 ### Springboot
-**https://start.spring.io/** 에서 세팅 후 
+**https://start.spring.io/** 에서 세팅 후 시작
 - 2.2.2 RELEASE
 - JAR
 - JAVA 8(1.8.0_241)

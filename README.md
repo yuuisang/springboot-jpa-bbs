@@ -5,15 +5,6 @@
 - Dependencies
   > Spring Boot DevTools<br>Lombok<br>Spring Web<br>Thymeleaf<br>Apache Freemarker<br>Spring Security<br>Spring Data JPA<br>H2 Database<br>Spring Boot Actuator
   
-
-### JPA
->
-
-### Thymeleaf
->
-
 ### Eclipse
 > 2020-12
 
-### Server
-> AWS 예정

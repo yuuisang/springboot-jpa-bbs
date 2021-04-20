@@ -44,4 +44,19 @@ public class BoardService {
         }
         return boardDTOList;
     }
+
+    //게시글의 id를 받아 해당 게시글의 데이터만 가져와 화면에 뿌려줘야함.
+    @Transactional
+    public BoardDTO getPost(Long id) {
+        Board board = boardRepository.findById(id).get();
+
+        BoardDTO boardDTO = BoardDTO.builder()
+                .id(board.getId())
+                .author(board.getAuthor())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .createdDate(board.getCreatedDate())
+                .build();
+        return boardDTO;
+    }
 }

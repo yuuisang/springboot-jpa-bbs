@@ -59,4 +59,12 @@ public class BoardService {
                 .build();
         return boardDTO;
     }
+
+    //글을 조회하는 페이지에서 ‘삭제’ 버튼을 누르면, /post/{id}으로 Delete 요청을 한다.
+    // (만약 1번 글에서 ‘삭제’ 버튼을 클릭하면 /post/1로 접속.)
+    @Transactional
+    public void deletePost(Long id) {
+        boardRepository.deleteById(id);
+    }
+
 }

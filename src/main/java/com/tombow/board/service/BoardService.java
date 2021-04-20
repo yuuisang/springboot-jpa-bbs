@@ -1,10 +1,13 @@
 package com.tombow.board.service;
 
+import com.tombow.board.domain.entity.Board;
 import com.tombow.board.domain.repository.BoardRepository;
 import com.tombow.board.dto.BoardDTO;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 //Repository를 사용하여 Service를 구현합니다.
 //글쓰기 Form에서 내용을 입력한 뒤, ‘글쓰기’ 버튼을 누르면 Post 형식으로 요청이 오고,
@@ -17,8 +20,28 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
+    // POSTING 작업
     @Transactional
     public Long savePost(BoardDTO boardDTO){
         return boardRepository.save(boardDTO.toEntity()).getId();
+    }
+
+    //Repository에서 모든 데이터를 조회하여, BoardDto List에 데이터를 넣어 반환
+    @Transactional
+    public List<BoardDTO> getBoardList() {
+        List<Board> boardList = boardRepository.findAll();
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+
+        for(Board board : boardList) {
+            BoardDTO boardDTO = BoardDTO.builder()
+                    .id(board.getId())
+                    .author(board.getAuthor())
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .createdDate(board.getCreatedDate())
+                    .build();
+            boardDTOList.add(boardDTO);
+        }
+        return boardDTOList;
     }
 }

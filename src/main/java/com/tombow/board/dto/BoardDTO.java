@@ -19,6 +19,7 @@ public class BoardDTO {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
+    //아래 코드의 toEntity()는 DTO에서 필요한 부분을 빌더 패턴을 통해 Entity로 만드는 일을 합니다.
     public Board toEntity() {
         Board build = Board.builder()
                 .id(id)

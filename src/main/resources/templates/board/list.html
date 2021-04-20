@@ -18,6 +18,7 @@
         </tr>
         </thead>
         <tbody>
+        <!-- board/list.html에서 postList를 받아, 데이터베이스에 있는 내용들을 출력해 준다.-->
         <tr class="text-center" th:each="post : ${postList}">
             <th scope="row">
                 <span th:text="${post.id}"></span>

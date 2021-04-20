@@ -1,19 +1,33 @@
 package com.tombow.board.controller;
 
 import com.tombow.board.dto.BoardDTO;
+import com.tombow.board.dto.FileDTO;
 import com.tombow.board.service.BoardService;
+import com.tombow.board.service.FileService;
+import com.tombow.board.util.MD5Generator;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
 public class BoardController {
     private BoardService boardService;
+    private FileService fileService;
 
-    public BoardController(BoardService boardService){
+    public BoardController(BoardService boardService, FileService fileService){
         this.boardService = boardService;
+        this.fileService = fileService;
     }
 
     //model.addAttribute("postList", boardDtoList); 를 통하여 
@@ -31,10 +45,39 @@ public class BoardController {
     }
 
     @PostMapping("/post")
-    public String write(BoardDTO boardDTO){
-        boardService.savePost(boardDTO);
+    public String write(@RequestParam("file") MultipartFile files, BoardDTO boardDTO){
+        try {
+            String origFilename = files.getOriginalFilename();
+            String filename = new MD5Generator(origFilename).toString();
+            /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
+            String savePath = System.getProperty("user.dir") + "\\files";
+            /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
+            if (!new File(savePath).exists()) {
+                try{
+                    // JAVA.IO.FILE
+                    new File(savePath).mkdir();
+                }
+                catch(Exception e){
+                    e.getStackTrace();
+                }
+            }
+            String filePath = savePath + "\\" + filename;
+            files.transferTo(new File(filePath));
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setOrigFilename(origFilename);
+            fileDTO.setFilename(filename);
+            fileDTO.setFilePath(filePath);
+
+            Long fileId = fileService.saveFile(fileDTO);
+            boardDTO.setFileId(fileId);
+            boardService.savePost(boardDTO);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:/";
     }
+
 
     //각 게시글을 클릭하면, /post/{id}으로 Get 요청을 합니다.
     //만약 1번 글을 클릭하면 /post/1로 접속됩니다.
@@ -64,6 +107,17 @@ public class BoardController {
     public String delete(@PathVariable("id") Long id) {
         boardService.deletePost(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/download/{fileId}")
+    public ResponseEntity<InputStreamResource> fileDownload(@PathVariable("fileId") Long fileId) throws Exception {
+        FileDTO fileDTO = fileService.getFile(fileId);
+        Path path = Paths.get(fileDTO.getFilePath());
+        InputStreamResource resource = new InputStreamResource(Files.newInputStream(path));
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDTO.getOrigFilename() + "\"")
+                .body(resource);
     }
 }
 

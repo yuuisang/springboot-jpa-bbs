@@ -9,7 +9,7 @@
 - Dependencies
   > Spring Web<br>Thymeleaf<br>Spring Data JPA<br>MySQL Driver<br>Lombok
   
-### 인텔리제이
+### IntelliJ
 - ideaIC-2021.1
 
 ### MySQL

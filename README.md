@@ -18,6 +18,8 @@
 ### 실행화면 캡처
 > 우선 게시판(파일업로드 까지, 추후에 로그인/회원가입 진행 예정)
 
+<br>
+
 #### 게시판 테이블
 ![boardTable](https://user-images.githubusercontent.com/58925978/115341346-64757700-a1e3-11eb-9302-8dc9864ee85e.PNG)
 ---

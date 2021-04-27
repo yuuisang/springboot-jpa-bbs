@@ -74,7 +74,6 @@ public class Board {
 
 </div>
 </details>
-<br>
 
 <details>
 <summary><b>코드 보기(BoardRepository.java)</b></summary>
@@ -89,7 +88,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
 </div>
 </details>
-<br>
 
 <details>
 <summary><b>코드 보기(BoardDTO.java)</b></summary>

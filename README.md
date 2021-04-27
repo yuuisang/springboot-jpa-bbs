@@ -26,7 +26,7 @@
 ![boardTable](https://user-images.githubusercontent.com/58925978/115341346-64757700-a1e3-11eb-9302-8dc9864ee85e.PNG)<br>
 
 <details>
-<summary><b style = " font-size:1.5em;  color: green;">코드 보기(Board.java)</b></summary>
+<summary  style = " font-size:1.5em;  color: green;"><b>코드 보기(Board.java)</b></summary>
 <div markdown="1">
 
 ```java

@@ -23,7 +23,59 @@
 <br>
 
 #### 게시판 테이블
-![boardTable](https://user-images.githubusercontent.com/58925978/115341346-64757700-a1e3-11eb-9302-8dc9864ee85e.PNG)
+![boardTable](https://user-images.githubusercontent.com/58925978/115341346-64757700-a1e3-11eb-9302-8dc9864ee85e.PNG)<br>
+
+**Board.java**
+<details>
+<summary><b>코드 보기</b></summary>
+<div markdown="1">
+
+```java
+// Entity는 데이터베이스 테이블과 매핑되는 객체
+
+@Getter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)// JPA에게 해당 Entity는 Auditiong 기능을 사용함을 알립니다
+public class Board {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(length = 10, nullable = false)
+    private String author;
+
+    @Column(length = 100, nullable = false)
+    private String title;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;
+
+    @Column
+    private Long fileId;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
+
+    @Builder
+    public Board(Long id, String author, String title, String content, Long fileId) {
+        this.id = id;
+        this.author = author;
+        this.title = title;
+        this.content = content;
+        this.fileId = fileId;
+    }
+}
+```
+
+</div>
+</details>
+
 ---
 #### 파일 테이블
 ![fileTable](https://user-images.githubusercontent.com/58925978/115341348-650e0d80-a1e3-11eb-9ffb-83d85e21ee92.PNG)

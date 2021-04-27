@@ -141,6 +141,100 @@ public class BoardDTO {
 ---
 #### 파일 테이블
 ![fileTable](https://user-images.githubusercontent.com/58925978/115341348-650e0d80-a1e3-11eb-9ffb-83d85e21ee92.PNG)
+
+<details>
+<summary><b>코드 보기(File.java)</b></summary>
+<div markdown="1">
+
+```java
+@Getter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class File {
+
+    //파일이 업로드되면 ‘업로드된 실제 파일명’, ‘서버에 저장된 파일명’, ‘파일이 서버에 저장된 위치’가 데이터 베이스에 기록되게 프로그램을 작성
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(nullable = false)
+    private String origFilename;
+
+    @Column(nullable = false)
+    private String filename;
+
+    @Column(nullable = false)
+    private String filePath;
+
+    @Builder
+    public File(Long id, String origFilename, String filename, String filePath) {
+        this.id = id;
+        this.origFilename = origFilename;
+        this.filename = filename;
+        this.filePath = filePath;
+    }
+}
+```
+
+</div>
+</details>
+
+<details>
+<summary><b>코드 보기(FileRepository.java)</b></summary>
+<div markdown="1">
+
+```java
+//Repository는 데이터 조작을 담당하며, JpaRepository를 상속받습니다.
+//JpaRepository의 값은 매핑할 Entity와 Id의 타입입니다.
+public interface FileRepository extends JpaRepository<File, Long> {
+}
+```
+
+</div>
+</details>
+
+<details>
+<summary><b>코드 보기(FileRepository.java)</b></summary>
+<div markdown="1">
+
+```java
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class FileDTO {
+    private Long id;
+    private String origFilename;
+    private String filename;
+    private String filePath;
+
+    public File toEntity() {
+        File build = File.builder()
+                .id(id)
+                .origFilename(origFilename)
+                .filename(filename)
+                .filePath(filePath)
+                .build();
+        return build;
+    }
+
+    @Builder
+    public FileDTO(Long id, String origFilename, String filename, String filePath) {
+        this.id = id;
+        this.origFilename = origFilename;
+        this.filename = filename;
+        this.filePath = filePath;
+    }
+}
+```
+
+</div>
+</details>
+
+
+<br>
+
 ---
 #### 글 목록
 ![list](https://user-images.githubusercontent.com/58925978/115341107-eadd8900-a1e2-11eb-9d2c-218384fba098.PNG)

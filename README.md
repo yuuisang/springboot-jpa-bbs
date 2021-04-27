@@ -74,6 +74,71 @@ public class Board {
 
 </div>
 </details>
+<br>
+
+<details>
+<summary><b>코드 보기(BoardRepository.java)</b></summary>
+<div markdown="1">
+
+```java
+//Repository는 데이터 조작을 담당하며, JpaRepository를 상속받습니다.
+//JpaRepository의 값은 매핑할 Entity와 Id의 타입입니다.
+public interface BoardRepository extends JpaRepository<Board, Long> {
+}
+```
+
+</div>
+</details>
+<br>
+
+<details>
+<summary><b>코드 보기(BoardDTO.java)</b></summary>
+<div markdown="1">
+
+```java
+//Controller와 Service 사이에서 데이터를 주고받는 DTO(Data Access Object)
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class BoardDTO {
+    private Long id;
+    private String author;
+    private String title;
+    private String content;
+    private Long fileId;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
+
+    //아래 코드의 toEntity()는 DTO에서 필요한 부분을 빌더 패턴을 통해 Entity로 만드는 일을 합니다.
+    public Board toEntity() {
+        Board build = Board.builder()
+                .id(id)
+                .author(author)
+                .title(title)
+                .content(content)
+                .fileId(fileId)
+                .build();
+        return build;
+    }
+
+    @Builder
+    public BoardDTO(Long id, String author, String title, String content, Long fileId, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+        this.id = id;
+        this.author = author;
+        this.title = title;
+        this.content = content;
+        this.fileId = fileId;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
+    }
+}
+```
+
+</div>
+</details>
+<br>
 
 ---
 #### 파일 테이블

@@ -25,6 +25,7 @@
 #### 게시판 테이블
 ![boardTable](https://user-images.githubusercontent.com/58925978/115341346-64757700-a1e3-11eb-9302-8dc9864ee85e.PNG)<br>
 
+<!--
 <details>
 <summary><b>코드 보기(Board.java)</b></summary>
 <div markdown="1">
@@ -206,6 +207,7 @@ public class BoardService {
 
 </div>
 </details>
+-->
 
 <br>
 
@@ -213,6 +215,7 @@ public class BoardService {
 #### 파일 테이블
 ![fileTable](https://user-images.githubusercontent.com/58925978/115341348-650e0d80-a1e3-11eb-9ffb-83d85e21ee92.PNG)
 
+<!--
 <details>
 <summary><b>코드 보기(File.java)</b></summary>
 <div markdown="1">
@@ -372,7 +375,7 @@ public class MD5Generator {
 
 </div>
 </details>
-
+-->
 
 
 <br>
